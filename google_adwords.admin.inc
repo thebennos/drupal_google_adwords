@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_admin_settings() for configuring the module
  */
-function google_adwords_admin_settings(&$form_state) {
+function google_adwords_admin_settings($form_state) {
 	
   $form['conversion'] = array(
     '#type' => 'fieldset',
@@ -66,8 +66,8 @@ function google_adwords_admin_settings(&$form_state) {
         '#description' => t('Define what user roles should be tracked.')
   );
 
-  while ($role = db_fetch_object($result)) {
-     // can't use empty spaces in varname
+		foreach ($result as $role) {
+    // can't use empty spaces in varname
     $role_varname = $string = str_replace(' ', '_', $role->name);
     $form['conversion']['roles']["google_adwords_track_{$role_varname}"] = array(
       '#type' => 'checkbox',
